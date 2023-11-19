@@ -1,5 +1,3 @@
-import {promises} from "dns";
-
 const baseUrl : string = 'http://127.0.0.1:5000/api/sejour';
 
 export async function getAllSejour(): Promise<Sejour[]> {

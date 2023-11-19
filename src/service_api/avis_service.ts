@@ -1,5 +1,3 @@
-import retryTimes = jest.retryTimes;
-
 const baseUrl : string = 'http://127.0.0.1:5000/api/avis'
 
 export async function getAllAvis(): Promise<Avis[]> {
