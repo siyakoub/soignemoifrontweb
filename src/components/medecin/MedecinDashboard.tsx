@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { mainListItems, secondaryListItems } from './dashboard/listItems';
+import {mainListItems, secondaryListItems} from './dashboard/listItems';
 import LogoMenu from "../../assets/LogoMenu";
 import {useEffect, useState} from "react";
 import {Menu, MenuItem} from "@mui/material";
@@ -31,8 +31,8 @@ function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                SuperBowl Betting
+            <Link color="inherit" href="#">
+                Soigne Moi
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -95,7 +95,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function UserDashboard() {
+export default function MedecinDashboard() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
     const navigate = useNavigate();

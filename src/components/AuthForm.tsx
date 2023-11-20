@@ -53,12 +53,13 @@ const AuthForm: React.FC = () => {
             password: String(data.get("password") || ''),
             userType: String(data.get("userType") || ''),
         };
-
+        console.log(form);
         try {
             const response = await loginUser(form);
+            const userType = form.userType;
 
             if (response) {
-                if (form.userType == "Administrateur") {
+                if (userType == "Administrateur") {
                     if (response["connected"] === true){
                         const token = response["sessions"]["token"]
                         const userActif = response["administrateur"]["actif"];
@@ -73,12 +74,13 @@ const AuthForm: React.FC = () => {
                         const userType = response["administrateur"]["userType"];
                         const user_id = response["administrateur"]["user_id"];
                         const zipCode = response["administrateur"]["zipCode"];
-                        navigate("/adminDashboard");
+                        localStorage.setItem('token', token);
+                        navigate("/admin-dashboard");
                     }else {
                         console.log("Aucun Administrateur trouvé...");
                         navigate("/signin")
                     }
-                } else if (form.userType == "Médecin") {
+                } else if (userType == "Médecin") {
                     if (response["connected"] === true){
                         const token = response["sessions"]["token"];
                         const userActif = response["medecin"]["actif"];
@@ -95,12 +97,13 @@ const AuthForm: React.FC = () => {
                         const userType = response["medecin"]["userType"];
                         const user_id = response["medecin"]["user_id"];
                         const zipCode = response["medecin"]["zipCode"];
-                        navigate("/medecinDashboard");
+                        localStorage.setItem('token', token);
+                        navigate("/medecin-dashboard");
                     }else {
                         console.log("Aucun Administrateur trouvé...");
                         navigate("/signin")
                     }
-                } else if (form.userType == "Client") {
+                } else if (userType == "Client") {
                     if (response["connected"] === true) {
                         const token = response["sessions"]["token"];
                         const userActif = response["utilisateur"]["actif"];
@@ -113,7 +116,8 @@ const AuthForm: React.FC = () => {
                         const userType = response["utilisateur"]["userType"];
                         const user_id = response["utilisateur"]["user_id"];
                         const zipCode = response["utilisateur"]["zipCode"];
-                        navigate("/userDashboard");
+                        localStorage.setItem('token', token);
+                        navigate("/user-dashboard");
                     }
                 }
             } else {
@@ -184,9 +188,10 @@ const AuthForm: React.FC = () => {
                                 <InputLabel id="user-type-label">Type d'utilisateur</InputLabel>
                                 <Select
                                     labelId="user-type-label"
-                                    id="user-type"
+                                    id="userType"
                                     value={userType}
                                     label="Type d'utilisateur"
+                                    name="userType"
                                     onChange={handleChange}
                                 >
                                     <MenuItem value={'Médecin'}>Médecin</MenuItem>

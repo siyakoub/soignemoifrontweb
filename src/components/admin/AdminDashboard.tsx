@@ -31,8 +31,8 @@ function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                SuperBowl Betting
+            <Link color="inherit" href="#">
+                Soigne Moi
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -95,7 +95,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function UserDashboard() {
+export default function AdminDashboard() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
     const navigate = useNavigate();
@@ -207,7 +207,7 @@ export default function UserDashboard() {
                         }}
                     >
                         <LogoMenu/>
-                        <h5>Soigne Moi</h5>
+                        <h6>Soigne Moi</h6>
                         <IconButton onClick={toggleDrawer}>
                             <ChevronLeftIcon />
                         </IconButton>

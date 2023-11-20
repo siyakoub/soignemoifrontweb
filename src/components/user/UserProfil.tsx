@@ -15,7 +15,7 @@ const UserProfile: React.FC = () => {
         <Container>
             <Row>
                 <Col>
-                    <h2>Profil Admin</h2>
+                    <h2>Profil Client</h2>
                     <Card>
                         <Card.Body>
                             <Card.Title>

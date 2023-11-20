@@ -80,6 +80,23 @@ export async function getUserByEmail(email: string): Promise<User> {
     return data['user'] as User;
 }
 
+export async function getUserByToken(token: string): Promise<User> {
+    const response = await fetch(baseUrl + `/users/getByToken`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'token': token
+        }
+    });
+    if (response.status == 404) {
+        throw new Error("Aucun utilisateur trouvé...")
+    } else if (!response.ok) {
+        throw new Error("Une erreur est survenue lors de la récupération de l'utilisateur...")
+    }
+    const data = await response.json();
+    return data['utilisateur'] as User;
+}
+
 export async function createUser(user: UserRegister): Promise<User> {
     const response = await fetch(baseUrl + '/users/signup', {
         method: 'GET',
@@ -159,8 +176,7 @@ export async function loginUser(loginUser: LoginUser): Promise<any> {
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la connexion utilisateur...")
     }
-    const data = await response.json();
-    return data;
+    return await response.json();
 }
 
 export async function logoutUser(token: string): Promise<any> {
