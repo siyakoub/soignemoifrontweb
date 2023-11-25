@@ -75,6 +75,7 @@ const AuthForm: React.FC = () => {
                         const user_id = response["administrateur"]["user_id"];
                         const zipCode = response["administrateur"]["zipCode"];
                         localStorage.setItem('token', token);
+                        localStorage.setItem("admin_id", admin_id)
                         navigate("/admin-dashboard");
                     }else {
                         console.log("Aucun Administrateur trouvé...");
@@ -98,6 +99,7 @@ const AuthForm: React.FC = () => {
                         const user_id = response["medecin"]["user_id"];
                         const zipCode = response["medecin"]["zipCode"];
                         localStorage.setItem('token', token);
+                        localStorage.setItem('medecin_id', medecin_id);
                         navigate("/medecin-dashboard");
                     }else {
                         console.log("Aucun Administrateur trouvé...");

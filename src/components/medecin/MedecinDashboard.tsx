@@ -3,6 +3,15 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import CommentIcon from '@mui/icons-material/Comment';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -26,6 +35,10 @@ import {logoutUser} from "../../service_api/user_service";
 import {useNavigate} from "react-router-dom";
 import HomeDraw from "./dashboard/homeDraw";
 import MatchDraw from "./dashboard/matchDraw";
+import WeeklySchedule from "./dashboard/WeeklySchedule";
+import ListSejour from "./dashboard/listesejour";
+import ListPrescription from "./dashboard/listPrescription";
+import AvisList from "./dashboard/listAvis";
 
 function Copyright(props: any) {
     return (
@@ -96,10 +109,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function MedecinDashboard() {
+    const [selectedComponent, setSelectedComponent] = useState<string>('');
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const medecin_id = localStorage.getItem("medecin_id");
 
     useEffect(() => {
         if (token === undefined || token === null) {
@@ -110,6 +125,11 @@ export default function MedecinDashboard() {
         }
     }, [navigate, token]);
 
+
+    const handleMenuItemClick = (componentName: string) => {
+        setSelectedComponent(componentName);
+        handleMenuClose();
+    };
 
     const handleMenuLogout = async () => {
         if (token) {
@@ -214,12 +234,35 @@ export default function MedecinDashboard() {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <DashboardIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home"/>
+                        </ListItemButton>
+                        <ListItemButton onClick={() => handleMenuItemClick('AvisList')}>
+                            <ListItemIcon>
+                                <CommentIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Mes avis" />
+                        </ListItemButton>
+                        <ListItemButton onClick={() => handleMenuItemClick('ListPrescription')}>
+                            <ListItemIcon>
+                                <EditNoteIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Mes Prescription"></ListItemText>
+                        </ListItemButton>
+                        <ListItemButton onClick={() => handleMenuItemClick('ListSejour')}>
+                            <ListItemIcon>
+                                <BookOnlineIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Mes Sejours" />
+                        </ListItemButton>
                     </List>
                 </Drawer>
-                <MatchDraw/>
+                {selectedComponent === 'AvisList' && <AvisList medecinId={String(medecin_id)} />}
+                {selectedComponent === 'ListPrescription' && <ListPrescription  medecinId={String(medecin_id)}/>}
+                {selectedComponent === 'ListSejour' && <ListSejour  medecinId={String(medecin_id)}/>}
             </Box>
         </ThemeProvider>
     );

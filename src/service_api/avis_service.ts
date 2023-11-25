@@ -49,7 +49,7 @@ export async function getAllAvisByUser(user_id: number) : Promise<Avis[]> {
 }
 
 export async function getAllAvisbyMedecin(medecin_id: number): Promise<Avis[]> {
-    const response = await fetch(baseUrl + `avis/${medecin_id}/onmedecin`, {
+    const response = await fetch(baseUrl + `/avis/${medecin_id}/onmedecin`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

@@ -115,8 +115,8 @@ export interface SejourRegister{
 }
 
 export interface Sejour {
-    date_debut: string,
-    date_fin: string,
+    dateDebut: string,
+    dateFin: string,
     medecin_id: string,
     motif: string,
     sejour_id: string,

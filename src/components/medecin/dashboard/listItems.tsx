@@ -5,10 +5,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import CommentIcon from '@mui/icons-material/Comment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {useState} from "react";
+
+const [selectedComponent, setSelectedComponent] = useState<string>('');
+const handleMenuItemClick = (componentName: string) => {
+    setSelectedComponent(componentName);
+};
 
 export const mainListItems = (
     <React.Fragment>
@@ -16,7 +21,7 @@ export const mainListItems = (
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary="Home"/>
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
@@ -28,7 +33,7 @@ export const mainListItems = (
             <ListItemIcon>
                 <EditNoteIcon />
             </ListItemIcon>
-            <ListItemText primary="Mes Prescription" />
+            <ListItemText primary="Mes Prescription"></ListItemText>
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
