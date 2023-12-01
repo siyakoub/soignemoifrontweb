@@ -1,4 +1,4 @@
-const baseUrl : string = 'http://127.0.0.1:5000/api/sejour';
+const baseUrl : string = 'http://104.199.34.146:5000/api/sejour';
 
 export async function getAllSejour(): Promise<Sejour[]> {
     const response = await fetch(baseUrl + '/sejours', {
