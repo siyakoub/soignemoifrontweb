@@ -15,7 +15,7 @@ import Image from "../assets/Image";
 import {LoginUser, User, loginUser} from "../service_api/user_service";
 import { useNavigate } from "react-router-dom";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Console} from "inspector";
 
 
@@ -38,6 +38,9 @@ const AuthForm: React.FC = () => {
 
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const medecin_id = localStorage.getItem("medecin_id");
+    const user_id = localStorage.getItem("user_id");
+    const admin_id = localStorage.getItem("admin_id");
 
     const [userType, setUserType] = useState('');
 
@@ -119,6 +122,7 @@ const AuthForm: React.FC = () => {
                         const user_id = response["utilisateur"]["user_id"];
                         const zipCode = response["utilisateur"]["zipCode"];
                         localStorage.setItem('token', token);
+                        localStorage.setItem('user_id', user_id);
                         navigate("/user-dashboard");
                     }
                 }
@@ -131,6 +135,16 @@ const AuthForm: React.FC = () => {
             // Gérez les erreurs de l'appel API
         }
     }
+
+    useEffect(() => {
+        if (medecin_id !== "" || medecin_id !== null) {
+            navigate("/medecin-dashboard");
+        } else if (admin_id !== "" || admin_id !== null) {
+            navigate("/admin-dashboard");
+        } else {
+            navigate("/user-dashboard");
+        }
+    }, [medecin_id, admin_id, user_id, navigate]);
 
     return (
         <ThemeProvider theme={defaultTheme}>

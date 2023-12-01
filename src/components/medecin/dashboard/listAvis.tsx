@@ -30,8 +30,10 @@ const AvisList: React.FC<{ medecinId: string }> = ({ medecinId }) => {
     }, [medecinId]);
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", maxHeight: "100vh", overflowY: "auto", width: "100%", marginTop: "80px" }}>
-            <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
+        <div style={{ display: "flex", flexDirection: "column", maxHeight: "100vh", alignItems: "center", overflowY: "auto", width: "100%", marginTop: "80px" }}>
+            <h1>Mes Avis Client</h1>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center",
+                alignItems: "center", width: "90%" }}>
                 {avisList.map((avis, index) => (
                     <AvisCard key={index}>
                         <CardContent>

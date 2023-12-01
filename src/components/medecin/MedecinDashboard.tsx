@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import DateRangeIcon from '@mui/icons-material/DateRange';
 import CommentIcon from '@mui/icons-material/Comment';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -26,12 +27,11 @@ import {useEffect, useState} from "react";
 import {Menu, MenuItem} from "@mui/material";
 import {logoutUser} from "../../service_api/user_service";
 import {useNavigate} from "react-router-dom";
-import HomeDraw from "./dashboard/homeDraw";
-import MatchDraw from "./dashboard/matchDraw";
 import WeeklySchedule from "./dashboard/WeeklySchedule";
 import ListSejour from "./dashboard/listesejour";
 import ListPrescription from "./dashboard/listPrescription";
 import AvisList from "./dashboard/listAvis";
+import HomeDraw from "./dashboard/homeDraw";
 
 function Copyright(props: any) {
     return (
@@ -102,7 +102,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function MedecinDashboard() {
-    const [selectedComponent, setSelectedComponent] = useState<string>('');
+    const [selectedComponent, setSelectedComponent] = useState<string>('Home');
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
     const navigate = useNavigate();
@@ -110,11 +110,8 @@ export default function MedecinDashboard() {
     const medecin_id = localStorage.getItem("medecin_id");
 
     useEffect(() => {
-        if (token === undefined || token === null) {
-            console.log("Utilisateur non authentifié...");
+        if (medecin_id === undefined || medecin_id === null) {
             navigate("/signin");
-        } else {
-            console.log("Utilisateur authentifié...");
         }
     }, [navigate, token]);
 
@@ -227,17 +224,17 @@ export default function MedecinDashboard() {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        <ListItemButton>
+                        <ListItemButton  onClick={() => handleMenuItemClick('Home')}>
                             <ListItemIcon>
                                 <DashboardIcon />
                             </ListItemIcon>
                             <ListItemText primary="Home"/>
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleMenuItemClick('AvisList')}>
+                        <ListItemButton onClick={() => handleMenuItemClick('WeeklySchedule')}>
                             <ListItemIcon>
-                                <CommentIcon />
+                                <DateRangeIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Mes avis" />
+                            <ListItemText primary="Planning" />
                         </ListItemButton>
                         <ListItemButton onClick={() => handleMenuItemClick('ListPrescription')}>
                             <ListItemIcon>
@@ -251,11 +248,19 @@ export default function MedecinDashboard() {
                             </ListItemIcon>
                             <ListItemText primary="Mes Sejours" />
                         </ListItemButton>
+                        <ListItemButton onClick={() => handleMenuItemClick('AvisList')}>
+                            <ListItemIcon>
+                                <CommentIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Mes avis" />
+                        </ListItemButton>
                     </List>
                 </Drawer>
                 {selectedComponent === 'AvisList' && <AvisList medecinId={String(medecin_id)} />}
                 {selectedComponent === 'ListPrescription' && <ListPrescription  medecinId={String(medecin_id)}/>}
                 {selectedComponent === 'ListSejour' && <ListSejour  medecinId={String(medecin_id)}/>}
+                {selectedComponent === 'WeeklySchedule' && <WeeklySchedule/>}
+                {selectedComponent === 'Home' && <HomeDraw/>}
             </Box>
         </ThemeProvider>
     );

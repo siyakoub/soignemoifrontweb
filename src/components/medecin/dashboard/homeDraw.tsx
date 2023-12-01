@@ -5,10 +5,10 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
-import MatchTab from "./MatchTab";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import ListPrescription from "./listPrescription";
 
 function Copyright(props: any) {
     return (
@@ -24,7 +24,7 @@ function Copyright(props: any) {
 }
 
 const homeDraw : React.FC = () => {
-
+    let medecin_id = localStorage.getItem('medecin_id');
     return (
         <Box
             component="main"
@@ -70,7 +70,7 @@ const homeDraw : React.FC = () => {
                     {/* Recent Orders */}
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                            <MatchTab />
+                            <ListPrescription  medecinId={String(medecin_id)}/>
                         </Paper>
                     </Grid>
                 </Grid>

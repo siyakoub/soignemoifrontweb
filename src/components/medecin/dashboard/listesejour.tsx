@@ -37,8 +37,10 @@ const ListSejour: React.FC<{ medecinId: string }> = ({ medecinId }) => {
     }, [medecinId]);
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", maxHeight: "100vh", overflowY: "auto", width: "100%" , marginTop: "80px"}}>
-            <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", maxHeight: "100vh", overflowY: "auto", width: "100%" , marginTop: "80px"}}>
+            <h1>Mes Rendez-Vous</h1>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center",
+                alignItems: "center", width: "90%" }}>
                 {sejours.map((sejour) => (
                     <SejourCard key={sejour.sejour_id}>
                         <CardContent>
