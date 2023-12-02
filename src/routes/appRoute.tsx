@@ -10,7 +10,7 @@ import MedecinDashboard from "../components/medecin/MedecinDashboard";
 const AppRoute: React.FC = () => {
     return (
         <Routes>
-            <Route path="/signin" element={<AuthForm/>} />
+            <Route path="/" element={<AuthForm/>} />
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/forget-password" element={<ForgetPassword/>}/>
             <Route path="/user-dashboard" element={<UserDashboard/>}/>

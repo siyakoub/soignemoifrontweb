@@ -46,6 +46,7 @@ export default function SignUp() {
 
     const [userType, setUserType] = useState('');
     const [medecinFields, setMedecinFields] = useState(false);
+    const [userFlieds, setUserField] = useState(false);
 
     const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setUserType(event.target.value);
@@ -54,12 +55,17 @@ export default function SignUp() {
         } else {
             setMedecinFields(false);
         }
+        if (event.target.value == "Client") {
+            setUserField(true);
+        } else {
+            setUserField(false);
+        }
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         try {
-            if (data.get("userType") == "Client") {
+            if (data.get('userType') == 'Client') {
                 const user: UserRegister = {
                     name: String(data.get("name") || ''), // Assurez-vous que la valeur n'est pas nulle et forcez-la à être une chaîne de caractères
                     firstName: String(data.get("firstName") || ''),
@@ -74,11 +80,11 @@ export default function SignUp() {
                 if (response) {
                     console.log("Utilisateur inscrit avec succès...")
                     setOpenSuccessSnackbar(true)
-                    navigate('/signin');
+                    navigate('/');
                 }else {
                     console.log("Une erreur est survenue...")
                 }
-            } else if (data.get("userType") == "Médecin") {
+            } else if (data.get('userType') == "Médecin") {
                 const medecin: MedecinRegister = {
                     name: String(data.get("name")), // Assurez-vous que la valeur n'est pas nulle et forcez-la à être une chaîne de caractères
                     firstName: String(data.get("firstName")),
@@ -96,13 +102,14 @@ export default function SignUp() {
                 if (response) {
                     console.log("Utilisateur inscrit avec succès...")
                     setOpenSuccessSnackbar(true)
-                    navigate('/signin');
+                    navigate('/');
                 }else {
                     console.log("Une erreur est survenue...")
                 }
             }
         } catch (e) {
-            console.log("Une erreur est survenue lors de l'inscription de l'utilisateur...")
+            console.log("Une erreur est survenue lors de l'inscription de l'utilisateur...");
+            console.log(e)
         }
     }
 
@@ -205,22 +212,12 @@ export default function SignUp() {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="email"
-                                    label="Adresse E-mail"
-                                    type="email"
-                                    id="email"
-                                    autoComplete="email"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
                                 <FormControl fullWidth sx={{ mt: 1 }}>
                                     <InputLabel id="user-type-label">Type d'utilisateur</InputLabel>
                                     <Select
                                         labelId="user-type-label"
-                                        id="user-type"
+                                        id="userType"
+                                        name="userType"
                                         value={userType}
                                         label="Type d'utilisateur"
                                         onChange={handleChange}

@@ -111,9 +111,9 @@ export default function MedecinDashboard() {
 
     useEffect(() => {
         if (medecin_id === undefined || medecin_id === null) {
-            navigate("/signin");
+            navigate("/");
         }
-    }, [navigate, token]);
+    }, [navigate, medecin_id]);
 
 
     const handleMenuItemClick = (componentName: string) => {
@@ -128,14 +128,20 @@ export default function MedecinDashboard() {
                 // Gérez la déconnexion avec succès
                 console.log(response);
                 localStorage.removeItem("token");
-                navigate("/signin");
+                localStorage.removeItem("user_id");
+                localStorage.removeItem("admin_id");
+                localStorage.removeItem("medecin_id");
+                navigate("/");
             }else {
                 console.log("Une erreur est survenue...");
             }
         } else {
             // Gérez le cas où le token est nul
+            localStorage.removeItem("medecin_id");
+            localStorage.removeItem("user_id");
+            localStorage.removeItem("admin_id");
             console.log("Une erreur est survenue...");
-            navigate("/signin");
+            navigate("/");
         }
     }
 
@@ -262,6 +268,7 @@ export default function MedecinDashboard() {
                 {selectedComponent === 'WeeklySchedule' && <WeeklySchedule/>}
                 {selectedComponent === 'Home' && <HomeDraw/>}
             </Box>
+            <Copyright/>
         </ThemeProvider>
     );
 }

@@ -1,23 +1,20 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Linked from '@mui/material/Link';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Image from "../assets/Image";
-import {LoginUser, User, loginUser} from "../service_api/user_service";
-import { useNavigate } from "react-router-dom";
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {useEffect, useState} from "react";
-import {Console} from "inspector";
-
+import { loginUser } from '../service_api/user_service';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import Image from '../assets/Image';
+import Checkbox from "@mui/material/Checkbox";
 
 function Copyright(props: any) {
     return (
@@ -34,35 +31,44 @@ function Copyright(props: any) {
 
 const defaultTheme = createTheme();
 
-const AuthForm: React.FC = () => {
-
+const AuthForm = () => {
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
-    const medecin_id = localStorage.getItem("medecin_id");
-    const user_id = localStorage.getItem("user_id");
-    const admin_id = localStorage.getItem("admin_id");
-
     const [userType, setUserType] = useState('');
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const medecin_id = localStorage.getItem('medecin_id');
+        const user_id = localStorage.getItem('user_id');
+        const admin_id = localStorage.getItem('admin_id');
+
+        if (token) {
+            if (medecin_id || admin_id || user_id) {
+                if (medecin_id) navigate('/medecin-dashboard');
+                else if (admin_id) navigate('/admin-dashboard');
+                else if (user_id) navigate('/user-dashboard');
+            }
+        }
+    }, [navigate]);
 
     const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setUserType(event.target.value);
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: { preventDefault: () => void; currentTarget: HTMLFormElement | undefined; }) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const form: LoginUser = {
-            email: String(data.get("email") || ''),
-            password: String(data.get("password") || ''),
-            userType: String(data.get("userType") || ''),
+        const form = {
+            email: String(data.get('email') || ''),
+            password: String(data.get('password') || ''),
+            userType: String(data.get('userType') || ''),
         };
         console.log(form);
         try {
             const response = await loginUser(form);
-            const userType = form.userType;
+            const userTypeBase = form.userType;
 
             if (response) {
-                if (userType == "Administrateur") {
+                if (userTypeBase == "Administrateur") {
                     if (response["connected"] === true){
                         const token = response["sessions"]["token"]
                         const userActif = response["administrateur"]["actif"];
@@ -77,14 +83,19 @@ const AuthForm: React.FC = () => {
                         const userType = response["administrateur"]["userType"];
                         const user_id = response["administrateur"]["user_id"];
                         const zipCode = response["administrateur"]["zipCode"];
-                        localStorage.setItem('token', token);
-                        localStorage.setItem("admin_id", admin_id)
-                        navigate("/admin-dashboard");
+                        if (userType == userTypeBase) {
+                            localStorage.setItem('token', token);
+                            localStorage.setItem("admin_id", admin_id)
+                            navigate("/admin-dashboard");
+                        } else {
+                            console.log("Mauvais type d'utilisateur selectionnée...");
+                            navigate("/")
+                        }
                     }else {
                         console.log("Aucun Administrateur trouvé...");
-                        navigate("/signin")
+                        navigate("/")
                     }
-                } else if (userType == "Médecin") {
+                } else if (userTypeBase == "Médecin") {
                     if (response["connected"] === true){
                         const token = response["sessions"]["token"];
                         const userActif = response["medecin"]["actif"];
@@ -101,14 +112,18 @@ const AuthForm: React.FC = () => {
                         const userType = response["medecin"]["userType"];
                         const user_id = response["medecin"]["user_id"];
                         const zipCode = response["medecin"]["zipCode"];
-                        localStorage.setItem('token', token);
-                        localStorage.setItem('medecin_id', medecin_id);
-                        navigate("/medecin-dashboard");
+                        if (userType == userTypeBase) {
+                            localStorage.setItem('token', token);
+                            localStorage.setItem('medecin_id', medecin_id);
+                            navigate("/medecin-dashboard");
+                        } else {
+                            console.log("Mauvais type d'utilisateur selectionnée...")
+                        }
                     }else {
                         console.log("Aucun Administrateur trouvé...");
-                        navigate("/signin")
+                        navigate("/")
                     }
-                } else if (userType == "Client") {
+                } else if (userTypeBase == "Client") {
                     if (response["connected"] === true) {
                         const token = response["sessions"]["token"];
                         const userActif = response["utilisateur"]["actif"];
@@ -121,9 +136,16 @@ const AuthForm: React.FC = () => {
                         const userType = response["utilisateur"]["userType"];
                         const user_id = response["utilisateur"]["user_id"];
                         const zipCode = response["utilisateur"]["zipCode"];
-                        localStorage.setItem('token', token);
-                        localStorage.setItem('user_id', user_id);
-                        navigate("/user-dashboard");
+                        if (userType == userTypeBase) {
+                            localStorage.setItem('token', token);
+                            localStorage.setItem('user_id', user_id);
+                            navigate("/user-dashboard");
+                        } else {
+                            console.log("Mauvais type d'utilisateur séléctionnée...");
+                        }
+                    } else {
+                        console.log("Aucune utilisateur Client trouvé...");
+                        navigate("/");
                     }
                 }
             } else {
@@ -135,16 +157,6 @@ const AuthForm: React.FC = () => {
             // Gérez les erreurs de l'appel API
         }
     }
-
-    useEffect(() => {
-        if (medecin_id !== "" || medecin_id !== null) {
-            navigate("/medecin-dashboard");
-        } else if (admin_id !== "" || admin_id !== null) {
-            navigate("/admin-dashboard");
-        } else {
-            navigate("/user-dashboard");
-        }
-    }, [medecin_id, admin_id, user_id, navigate]);
 
     return (
         <ThemeProvider theme={defaultTheme}>

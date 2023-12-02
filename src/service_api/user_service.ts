@@ -1,4 +1,4 @@
-const baseUrl : string = 'http://104.199.34.146:5000/api/user';
+const baseUrl : string = 'http://soigne-moi-app.fr:5000/api/user';
 
 export async function getAllUsers(): Promise<User[]> {
     const response = await fetch(baseUrl + '/users', {
@@ -99,7 +99,7 @@ export async function getUserByToken(token: string): Promise<User> {
 
 export async function createUser(user: UserRegister): Promise<User> {
     const response = await fetch(baseUrl + '/users/signup', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
