@@ -1,4 +1,4 @@
-const baseUrl: string = 'http://soigne-moi-app.fr:5000/api/prescription';
+const baseUrl: string = 'http://soigne-moi-app.fr:2000/api/prescription';
 
 export async function getAllPrescription(): Promise<Prescription[]> {
     const response = await fetch(baseUrl + '/prescriptions', {
