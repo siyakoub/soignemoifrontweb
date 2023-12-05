@@ -1,4 +1,4 @@
-const baseUrl: string = 'http://soigne-moi-app.fr:2000/api/entreesortie';
+const baseUrl: string = 'https://soigne-moi-app.fr:2000/api/entreesortie';
 
 export async function getAllEntreeSortie(): Promise<EntreesSorties[]> {
     const response = await fetch(baseUrl + '/entreessorties', {

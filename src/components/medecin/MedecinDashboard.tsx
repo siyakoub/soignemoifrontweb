@@ -108,6 +108,7 @@ export default function MedecinDashboard() {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
     const medecin_id = localStorage.getItem("medecin_id");
+    const userType = localStorage.getItem("userType");
 
     useEffect(() => {
         if (medecin_id === undefined || medecin_id === null) {

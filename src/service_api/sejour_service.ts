@@ -1,4 +1,4 @@
-const baseUrl : string = 'http://soigne-moi-app.fr:2000/api/sejour';
+const baseUrl : string = 'https://soigne-moi-app.fr:2000/api/sejour';
 
 export async function getAllSejour(): Promise<Sejour[]> {
     const response = await fetch(baseUrl + '/sejours', {

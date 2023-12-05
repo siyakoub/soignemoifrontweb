@@ -62,11 +62,10 @@ const AuthForm = () => {
             password: String(data.get('password') || ''),
             userType: String(data.get('userType') || ''),
         };
-        console.log(form);
+        //console.log(form);
         try {
             const response = await loginUser(form);
             const userTypeBase = form.userType;
-
             if (response) {
                 if (userTypeBase == "Administrateur") {
                     if (response["connected"] === true){
@@ -85,7 +84,8 @@ const AuthForm = () => {
                         const zipCode = response["administrateur"]["zipCode"];
                         if (userType == userTypeBase) {
                             localStorage.setItem('token', token);
-                            localStorage.setItem("admin_id", admin_id)
+                            localStorage.setItem("admin_id", admin_id);
+                            localStorage.setItem("userType", userType);
                             navigate("/admin-dashboard");
                         } else {
                             console.log("Mauvais type d'utilisateur selectionnée...");
@@ -115,6 +115,7 @@ const AuthForm = () => {
                         if (userType == userTypeBase) {
                             localStorage.setItem('token', token);
                             localStorage.setItem('medecin_id', medecin_id);
+                            localStorage.setItem("userType", userType);
                             navigate("/medecin-dashboard");
                         } else {
                             console.log("Mauvais type d'utilisateur selectionnée...")
@@ -139,6 +140,7 @@ const AuthForm = () => {
                         if (userType == userTypeBase) {
                             localStorage.setItem('token', token);
                             localStorage.setItem('user_id', user_id);
+                            localStorage.setItem("userType", userType);
                             navigate("/user-dashboard");
                         } else {
                             console.log("Mauvais type d'utilisateur séléctionnée...");

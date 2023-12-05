@@ -1,5 +1,5 @@
 
-const baseUrl : string = "http://soigne-moi-app.fr:2000/api/admin"
+const baseUrl : string = "https://soigne-moi-app.fr:2000/api/admin"
 
 export async function getAllAdmins(): Promise<Admin[]> {
     const response = await fetch(baseUrl + '/admins', {

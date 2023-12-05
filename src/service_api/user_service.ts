@@ -1,4 +1,4 @@
-const baseUrl : string = 'http://soigne-moi-app.fr:2000/api/user';
+const baseUrl : string = 'https://soigne-moi-app.fr:2000/api/user';
 
 export async function getAllUsers(): Promise<User[]> {
     const response = await fetch(baseUrl + '/users', {

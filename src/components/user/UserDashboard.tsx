@@ -100,11 +100,13 @@ export default function UserDashboard() {
     const isMenuOpen = Boolean(anchorEl);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const user_id = localStorage.getItem("user_id");
+    const userType = localStorage.getItem("userType");
 
     useEffect(() => {
-        if (token === undefined || token === null) {
+        if (user_id === null || token === null) {
             console.log("Utilisateur non authentifié...");
-            navigate("/signin");
+            navigate("/");
         } else {
             console.log("Utilisateur authentifié...");
         }
@@ -118,14 +120,17 @@ export default function UserDashboard() {
                 // Gérez la déconnexion avec succès
                 console.log(response);
                 localStorage.removeItem("token");
-                navigate("/signin");
+                localStorage.removeItem("user_id");
+                navigate("/");
             }else {
                 console.log("Une erreur est survenue...");
             }
         } else {
             // Gérez le cas où le token est nul
             console.log("Une erreur est survenue...");
-            navigate("/signin");
+            localStorage.removeItem("token");
+            localStorage.removeItem("user_id");
+            navigate("/");
         }
     }
 

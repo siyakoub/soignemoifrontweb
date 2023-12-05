@@ -4,10 +4,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import PaidIcon from '@mui/icons-material/Paid';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import SportsFootballIcon from '@mui/icons-material/SportsFootball';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import BookOnlineIcon from "@mui/icons-material/BookOnline";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import MedicationLiquidIcon from '@mui/icons-material/MedicationLiquid';
 
 export const mainListItems = (
     <React.Fragment>
@@ -19,15 +19,15 @@ export const mainListItems = (
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
-                <SportsFootballIcon />
+                <BookOnlineIcon />
             </ListItemIcon>
-            <ListItemText primary="Match à venir" />
+            <ListItemText primary="Mes rendez-vous" />
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
-                <PaidIcon />
+                <EditNoteIcon />
             </ListItemIcon>
-            <ListItemText primary="Parier" />
+            <ListItemText primary="Mes prescriptions" />
         </ListItemButton>
     </React.Fragment>
 );
@@ -41,13 +41,13 @@ export const secondaryListItems = (
             <ListItemIcon>
                 <AssignmentIcon />
             </ListItemIcon>
-            <ListItemText primary="récapitulatif des match" />
+            <ListItemText primary="Prendre rendez-vous"/>
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
-                <CurrencyExchangeIcon />
+                <MedicationLiquidIcon />
             </ListItemIcon>
-            <ListItemText primary="Historiques des mises" />
+            <ListItemText primary="Médecins disponibles" />
         </ListItemButton>
     </React.Fragment>
 );
