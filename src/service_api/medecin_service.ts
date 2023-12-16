@@ -1,4 +1,4 @@
-const baseUrl: string = 'http://127.0.0.1:5000/api/medecin';
+const baseUrl: string = 'https://api.soigne-moi-app.fr/api/medecin';
 
 export async function getAllMedecin(): Promise<Medecin[]> {
     const response = await fetch(baseUrl + '/medecins', {

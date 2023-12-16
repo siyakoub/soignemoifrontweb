@@ -1,4 +1,4 @@
-const baseUrl : string = 'http://127.0.0.1:5000/api/avis'
+const baseUrl : string = 'https://api.soigne-moi-app.fr/api/avis'
 
 export async function getAllAvis(): Promise<Avis[]> {
     const response = await fetch(baseUrl + '/avis', {
