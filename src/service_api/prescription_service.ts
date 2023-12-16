@@ -1,7 +1,7 @@
 const baseUrl: string = 'https://api.soigne-moi-app.fr/api/prescription';
 
 export async function getAllPrescription(): Promise<Prescription[]> {
-    const response = await fetch(baseUrl + '/prescriptions', {
+    const response = await fetch(baseUrl + '/prescriptions/getAll', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -65,14 +65,14 @@ export async function getAllPrescriptionByMedecin(medecin_id: number) : Promise<
 }
 
 export async function createPrescription(newPrescription: PrescriptionRegister): Promise<any> {
-    const response = await fetch(baseUrl + `/prescriptions`, {
+    const response = await fetch(baseUrl + `/prescriptions/new`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newPrescription)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Problème survenue lors de la création de la prescription...");
     }else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la création de la prescription...")

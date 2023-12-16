@@ -243,13 +243,13 @@ export default function MedecinDashboard() {
                             </ListItemIcon>
                             <ListItemText primary="Planning" />
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleMenuItemClick('ListSejour')}>
+                        <ListItemButton onClick={() => handleMenuItemClick('ListPrescription')}>
                             <ListItemIcon>
                                 <EditNoteIcon />
                             </ListItemIcon>
                             <ListItemText primary="Mes Prescription"></ListItemText>
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleMenuItemClick('ListPrescription')}>
+                        <ListItemButton onClick={() => handleMenuItemClick('ListSejour')}>
                             <ListItemIcon>
                                 <BookOnlineIcon />
                             </ListItemIcon>

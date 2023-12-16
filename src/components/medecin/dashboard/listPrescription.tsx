@@ -6,7 +6,13 @@ import { styled } from "@mui/system";
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import { getAllPrescriptionByMedecin, Prescription } from "../../../service_api/prescription_service";
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import {
+    getAllPrescriptionByMedecin,
+    Prescription,
+    PrescriptionRegister,
+    createPrescription
+} from "../../../service_api/prescription_service";
 import Box from "@mui/material/Box";
 import {
     Backdrop,
@@ -22,11 +28,12 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 const ListPrescription: React.FC<{ medecinId: string }> = ({ medecinId }) => {
+
+    const medecin_email = localStorage.getItem('email');
+
     const PrescriptionCard = styled(Card)({
         width: "100%"
     });
-
-    const [speciality, setSpeciality] = useState('');
 
     const actions = [
         { icon: <FileCopyIcon />, name: 'Nouvelle Prescription' }
@@ -38,13 +45,31 @@ const ListPrescription: React.FC<{ medecinId: string }> = ({ medecinId }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const handleCloseNewPrescription = () => setOpenAddPrescription(false);
+
     const handleOpenAddPrescription = () => setOpenAddPrescription(true);
 
-    const handleCloseAddPrescription = () => setOpenAddPrescription(false);
-
-    const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setSpeciality(event.target.value);
-    };
+    const handleCloseAddPrescription = async (event: { preventDefault: () => void; currentTarget: HTMLFormElement | undefined; }) => {
+        event.preventDefault();
+        // eslint-disable-next-line no-restricted-globals
+        const data = new FormData(event.currentTarget);
+        const form: PrescriptionRegister = {
+            user_email: String(data.get("user_email")),
+            medecin_email: String(medecin_email),
+            liste: String(data.get('list')),
+            dateDebut: String(data.get('dateDebut')),
+            dateFin: String(data.get('dateFin'))
+        };
+        console.log(form);
+        try {
+            const response = await createPrescription(form);
+            if (response) {
+                setOpenAddPrescription(false);
+            }
+        } catch (e) {
+            console.log("Une erreur est survenue lors de l'ajout de la prescription...");
+        }
+    }
 
     const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
 
@@ -114,69 +139,57 @@ const ListPrescription: React.FC<{ medecinId: string }> = ({ medecinId }) => {
                     ))}
                 </SpeedDial>
                 <Dialog open={openAddPrescription} onClose={handleCloseAddPrescription}>
-                    <DialogTitle>Créer une nouvelle prescription</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Renseigner les informations nécessaire pour crée une nouvelle prescription.
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="user_email"
-                            label="Email Client"
-                            type="email"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="motif"
-                            label="Motif"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="dateDebut"
-                            label="Début"
-                            type="datetime-local"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="dateFin"
-                            label="Fin"
-                            type="datetime-local"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <FormControl fullWidth sx={{ mt: 1 }}>
-                            <InputLabel id="speciality">Spécialité</InputLabel>
-                            <Select
-                                labelId="speciality"
-                                id="speciality"
-                                value={speciality}
-                                label="Spécialité"
-                                name="speciality"
-                                onChange={handleChange}
-                            >
-                                <MenuItem value={'Chirurgie'}>Chirurgie</MenuItem>
-                                <MenuItem value={'Consultation'}>Consultation</MenuItem>
-                                <MenuItem value={'Urgence'}>Urgence</MenuItem>
-                                <MenuItem value={'Autopsie'}>Autopsie</MenuItem>
-                                <MenuItem value={'Autre'}>Autre</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button type="submit">Annuler</Button>
-                        <Button onClick={handleCloseAddPrescription}>Créer</Button>
-                    </DialogActions>
+                    <form onSubmit={handleCloseAddPrescription}>
+                        <DialogTitle>Créer une nouvelle prescription</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Renseigner les informations nécessaire pour crée une nouvelle prescription.
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="user_email"
+                                label="Email Client"
+                                name="user_email"
+                                type="email"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <InputLabel htmlFor="list">Liste médicament</InputLabel>
+                            <TextareaAutosize
+                                aria-label="Liste médicament"
+                                minRows={3}
+                                placeholder="Entrez la liste des médicaments"
+                                style={{ width: '100%' }}
+                                id="list"
+                                name="list"
+                            />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="dateDebut"
+                                name="dateDebut"
+                                label="Début"
+                                type="datetime-local"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="dateFin"
+                                name="dateFin"
+                                label="Fin"
+                                type="datetime-local"
+                                fullWidth
+                                variant="standard"
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleCloseNewPrescription}>Annuler</Button>
+                            <Button type="submit">Créer</Button>
+                        </DialogActions>
+                    </form>
                 </Dialog>
             </Box>
         </>
