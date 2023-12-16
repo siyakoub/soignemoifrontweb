@@ -67,7 +67,7 @@ const ListPrescription: React.FC<{ medecinId: string }> = ({ medecinId }) => {
                 setOpenAddPrescription(false);
             }
         } catch (e) {
-            console.log("Une erreur est survenue lors de l'ajout de la prescription...");
+            console.log("Une erreur est survenue lors de l'ajout de la prescription...", e);
         }
     }
 
@@ -170,7 +170,7 @@ const ListPrescription: React.FC<{ medecinId: string }> = ({ medecinId }) => {
                                 id="dateDebut"
                                 name="dateDebut"
                                 label="Début"
-                                type="datetime-local"
+                                type="date"
                                 fullWidth
                                 variant="standard"
                             />
@@ -180,7 +180,7 @@ const ListPrescription: React.FC<{ medecinId: string }> = ({ medecinId }) => {
                                 id="dateFin"
                                 name="dateFin"
                                 label="Fin"
-                                type="datetime-local"
+                                type="date"
                                 fullWidth
                                 variant="standard"
                             />
