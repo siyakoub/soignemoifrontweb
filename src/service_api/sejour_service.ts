@@ -1,4 +1,4 @@
-const baseUrl : string = 'https://soigne-moi-app.fr:2000/api/sejour';
+const baseUrl : string = 'http://127.0.0.1:5000/api/sejour';
 
 export async function getAllSejour(): Promise<Sejour[]> {
     const response = await fetch(baseUrl + '/sejours', {
@@ -32,6 +32,22 @@ export async function getSejourById(sejour_id: number) : Promise<Sejour> {
     return data['Sejour'] as Sejour;
 }
 
+export async function getAllSejourByUser(user_id: number): Promise<Sejour[]> {
+    const response = await fetch(baseUrl + `/sejours/${user_id}/byuser`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (response.status === 404) {
+        throw Error("Aucun séjoue trouvé pour cette utilisateur...");
+    } else if (!response.ok) {
+        throw Error("Une erreur est survenue lors de la récupération des séjours de l'utilisateur...")
+    }
+    const data = await response.json();
+    return data['Sejours'] as Sejour[];
+}
+
 export async function getAllSejourByMedecin(medecin_id: number): Promise<Sejour[]> {
     const response = await fetch(baseUrl + `/sejours/${medecin_id}/formedecin`, {
         method: 'GET',
@@ -48,7 +64,7 @@ export async function getAllSejourByMedecin(medecin_id: number): Promise<Sejour[
     return data['Sejours'] as Sejour[];
 }
 
-export async function createSejour(newSejour: string): Promise<any> {
+export async function createSejour(newSejour: SejourRegister): Promise<any> {
     const response = await fetch(baseUrl + '/sejours', {
         method: 'POST',
         headers: {
@@ -58,7 +74,7 @@ export async function createSejour(newSejour: string): Promise<any> {
     });
     if (response.status == 404) {
         throw new Error("un Problème est survenue lors de la création du séjour...")
-    } else if (response.ok) {
+    } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la création du séjour...")
     }
     const data = await response.json();

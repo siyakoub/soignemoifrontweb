@@ -20,6 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
+import MedecinProfile from "./MedecinProfil";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoMenu from "../../assets/LogoMenu";
@@ -206,8 +207,7 @@ export default function MedecinDashboard() {
                                     'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem onClick={handleMenuClose}>Mon Profil</MenuItem>
-                                <MenuItem onClick={handleMenuClose}>Mes Sejours</MenuItem>
+                                <MenuItem onClick={() => handleMenuItemClick('myProfile')}>Mon Profil</MenuItem>
                                 <MenuItem onClick={handleMenuClose}>Paramètres</MenuItem>
                                 <MenuItem onClick={handleMenuLogout}>Déconnexion</MenuItem>
                             </Menu>
@@ -243,13 +243,13 @@ export default function MedecinDashboard() {
                             </ListItemIcon>
                             <ListItemText primary="Planning" />
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleMenuItemClick('ListPrescription')}>
+                        <ListItemButton onClick={() => handleMenuItemClick('ListSejour')}>
                             <ListItemIcon>
                                 <EditNoteIcon />
                             </ListItemIcon>
                             <ListItemText primary="Mes Prescription"></ListItemText>
                         </ListItemButton>
-                        <ListItemButton onClick={() => handleMenuItemClick('ListSejour')}>
+                        <ListItemButton onClick={() => handleMenuItemClick('ListPrescription')}>
                             <ListItemIcon>
                                 <BookOnlineIcon />
                             </ListItemIcon>
@@ -268,6 +268,7 @@ export default function MedecinDashboard() {
                 {selectedComponent === 'ListSejour' && <ListSejour  medecinId={String(medecin_id)}/>}
                 {selectedComponent === 'WeeklySchedule' && <WeeklySchedule/>}
                 {selectedComponent === 'Home' && <HomeDraw/>}
+                {selectedComponent === 'myProfile' && <MedecinProfile/>}
             </Box>
             <Copyright/>
         </ThemeProvider>

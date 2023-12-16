@@ -5,17 +5,17 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
-import MatchTab from "./MatchTab";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import PrescriptionTab from "./PrescriptionTab";
 
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                SuperBowl Betting
+            <Link color="inherit" href="#">
+                Soigne Moi
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -24,6 +24,8 @@ function Copyright(props: any) {
 }
 
 const homeDraw : React.FC = () => {
+
+    const user_id = localStorage.getItem('user_id');
 
     return (
         <Box
@@ -70,7 +72,7 @@ const homeDraw : React.FC = () => {
                     {/* Recent Orders */}
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                            <MatchTab />
+                            <PrescriptionTab userId={user_id}/>
                         </Paper>
                     </Grid>
                 </Grid>

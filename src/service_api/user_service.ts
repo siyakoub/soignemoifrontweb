@@ -1,4 +1,4 @@
-const baseUrl : string = 'https://soigne-moi-app.fr:2000/api/user';
+const baseUrl : string = 'http://127.0.0.1:5000/api/user';
 
 export async function getAllUsers(): Promise<User[]> {
     const response = await fetch(baseUrl + '/users', {
@@ -88,7 +88,7 @@ export async function getUserByToken(token: string): Promise<User> {
             'token': token
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération de l'utilisateur...")
@@ -105,7 +105,7 @@ export async function createUser(user: UserRegister): Promise<User> {
         },
         body: JSON.stringify(user)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Utilisateur non trouvé...");
     }else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la création de l'utilisateur...");

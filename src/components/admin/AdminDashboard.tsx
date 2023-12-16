@@ -25,7 +25,6 @@ import {Menu, MenuItem} from "@mui/material";
 import {logoutUser} from "../../service_api/user_service";
 import {useNavigate} from "react-router-dom";
 import HomeDraw from "./dashboard/homeDraw";
-import MatchDraw from "./dashboard/matchDraw";
 
 function Copyright(props: any) {
     return (
@@ -219,7 +218,7 @@ export default function AdminDashboard() {
                         {secondaryListItems}
                     </List>
                 </Drawer>
-                <MatchDraw/>
+
             </Box>
         </ThemeProvider>
     );

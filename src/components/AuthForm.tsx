@@ -86,6 +86,9 @@ const AuthForm = () => {
                             localStorage.setItem('token', token);
                             localStorage.setItem("admin_id", admin_id);
                             localStorage.setItem("userType", userType);
+                            localStorage.setItem("email", email);
+                            localStorage.setItem("email", name);
+                            localStorage.setItem("email", firstName);
                             navigate("/admin-dashboard");
                         } else {
                             console.log("Mauvais type d'utilisateur selectionnée...");
@@ -116,6 +119,9 @@ const AuthForm = () => {
                             localStorage.setItem('token', token);
                             localStorage.setItem('medecin_id', medecin_id);
                             localStorage.setItem("userType", userType);
+                            localStorage.setItem("email", email);
+                            localStorage.setItem("email", name);
+                            localStorage.setItem("email", firstName);
                             navigate("/medecin-dashboard");
                         } else {
                             console.log("Mauvais type d'utilisateur selectionnée...")
@@ -141,6 +147,9 @@ const AuthForm = () => {
                             localStorage.setItem('token', token);
                             localStorage.setItem('user_id', user_id);
                             localStorage.setItem("userType", userType);
+                            localStorage.setItem("email", email);
+                            localStorage.setItem("name", name);
+                            localStorage.setItem("firstName", firstName);
                             navigate("/user-dashboard");
                         } else {
                             console.log("Mauvais type d'utilisateur séléctionnée...");
