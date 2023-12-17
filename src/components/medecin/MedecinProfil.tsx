@@ -22,7 +22,7 @@ const MedecinProfile: React.FC = () => {
         };
 
         fetchData();
-    }, []);
+    }, [medecin_id]);
 
     const MedecinCard = styled(Card)({
         width: "100%"
@@ -33,37 +33,36 @@ const MedecinProfile: React.FC = () => {
             <h1>Profil Médecin</h1>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center",
                 alignItems: "center", width: "90%" }}>
-
+                <MedecinCard key={medecin?.medecin_id}>
+                    <Typography variant="h6" component="div">
+                        E-mail : {medecin?.email}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Matricule : {medecin?.matricule}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Nom : {medecin?.name}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Prénom : {medecin?.firstName}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Limite Client : {medecin?.limitCustomer}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Adresse : {medecin?.address}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Code Postal : {medecin?.zipCode}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Ville : {medecin?.city}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Spécialité : {medecin?.speciality}
+                    </Typography>
+                </MedecinCard>
             </div>
-            <MedecinCard key={medecin?.medecin_id}>
-                <Typography variant="h6" component="div">
-                    E-mail : {medecin?.email}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Matricule : {medecin?.matricule}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Nom : {medecin?.name}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Prénom : {medecin?.firstName}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Limite Client : {medecin?.limitCustomer}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Adresse : {medecin?.address}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Code Postal : {medecin?.zipCode}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Ville : {medecin?.city}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Spécialité : {medecin?.speciality}
-                </Typography>
-            </MedecinCard>
         </div>
     );
 };

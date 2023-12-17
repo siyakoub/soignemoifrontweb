@@ -37,6 +37,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import ListSubheader from "@mui/material/ListSubheader";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
+import UserProfile from "./UserProfil";
 
 function Copyright(props: any) {
     return (
@@ -275,6 +276,7 @@ export default function UserDashboard() {
                 {selectedComponent === 'prescription' && <PrescriptionTab userId={user_id}/>}
                 {selectedComponent === 'newRdv' && <AddSejour/>}
                 {selectedComponent === 'medecinDispo' && <ListMedecins user_id={user_id}/>}
+                {selectedComponent === 'myProfil' && <UserProfile/>}
             </Box>
         </ThemeProvider>
     );

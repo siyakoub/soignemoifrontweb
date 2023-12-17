@@ -1,41 +1,61 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import {getMedecinById, Medecin} from "../../service_api/medecin_service";
+import {getUserById, User} from "../../service_api/user_service";
+import {styled} from "@mui/system";
+import Typography from "@mui/material/Typography";
 
 const UserProfile: React.FC = () => {
-    const userData = {
-        actif: 1,
-        adresseEmail: "potter@example.com",
-        dateInscription: Date.now(),
-        motDePasse: "43e8afc76259b0ac31f2c2de6af3da122b01f867262f4c89ef16125f52bd3966",
-        nom: "Potter",
-        prenom: "Atlas",
-        userID: 1
-    }
+
+    const user_id = localStorage.getItem('user_id');
+
+    const [user, setUser] = useState<User>();
+
+    const UserCard = styled(Card)({
+        width: "100%"
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userData = await getUserById(Number(user_id));
+                setUser(userData);
+            } catch (error) {
+                console.error("Erreur lors de la récupération des séjours:", error);
+                // Gérer l'erreur ici (par exemple afficher un message d'erreur à l'utilisateur)
+            }
+        };
+
+        fetchData();
+    }, [user_id]);
     return (
-        <Container>
-            <Row>
-                <Col>
-                    <h2>Profil Client</h2>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>
-                                {
-                                    userData.prenom
-                                }
-                                {
-                                    userData.nom
-                                }
-                            </Card.Title>
-                            <Card.Text>
-                                <strong>E-mail : </strong>{userData.adresseEmail}
-                                <strong>Date d'inscription : </strong>{userData.dateInscription}
-                                <strong>Nom : </strong>{userData.nom}
-                                <strong>Prénom : </strong>{userData.prenom}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", maxHeight: "100vh", overflowY: "auto", width: "100%" , marginTop: "80px"}}>
+            <h1>Profil Utilisateur</h1>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center",
+                alignItems: "center", width: "90%" }}>
+                <UserCard key={user?.user_id}>
+                    <Typography variant="h6" component="div">
+                        E-mail : {user?.email}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Nom : {user?.name}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Prénom : {user?.firstName}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Adresse : {user?.address}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Code Postal : {user?.zipCode}
+                    </Typography>
+                    <Typography variant="h6" component="div">
+                        Ville : {user?.city}
+                    </Typography>
+                </UserCard>
+            </div>
+        </div>
     );
 };
+
+export default UserProfile;
