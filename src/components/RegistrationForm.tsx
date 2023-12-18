@@ -75,7 +75,7 @@ export default function SignUp() {
         const value = event.target.value;
         // Autoriser uniquement les chiffres et limiter à 7 chiffres
         if (value === '' || (value.match(/^\d+$/) && value.length <= 2)) {
-            setMatricule(value);
+            setLimit(value);
         }
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
