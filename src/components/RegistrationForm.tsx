@@ -74,7 +74,7 @@ export default function SignUp() {
     const handleLimitChange = (event: { target: { value: any; }; }) => {
         const value = event.target.value;
         // Autoriser uniquement les chiffres et limiter à 7 chiffres
-        if (value === '' || (value.match(/^\d+$/) && value.length <= 7)) {
+        if (value === '' || (value.match(/^\d+$/) && value.length <= 2)) {
             setMatricule(value);
         }
     };
@@ -284,7 +284,7 @@ export default function SignUp() {
                                             id="limitCustomer"
                                             value={limit}
                                             onChange={handleLimitChange}
-                                            inputProps={{ maxLength: 7 }}
+                                            inputProps={{ maxLength: 2 }}
                                         />
                                         {/* ... other fields for Médecin */}
                                     </Grid>
