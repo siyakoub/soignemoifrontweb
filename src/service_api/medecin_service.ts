@@ -7,7 +7,7 @@ export async function getAllMedecin(): Promise<Medecin[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des médecins...")
@@ -23,7 +23,7 @@ export async function getAllMedecinActif(): Promise<Medecin[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des médecins actifs...")
@@ -39,7 +39,7 @@ export async function getAllMedecinInactif(): Promise<Medecin[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des utilisateurs inactifs...");
@@ -55,7 +55,7 @@ export async function getMedecinById(medecin_id: number): Promise<Medecin> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin avec cet id trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération du médecin...")
@@ -71,7 +71,7 @@ export async function getMedecinByUserId(user_id: number): Promise<Medecin> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin enregistré pour cette utilisateur id...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération du médecin...")
@@ -87,7 +87,7 @@ export async function getMedecinByEmail(email: string): Promise<Medecin> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin trouvé avec cette e-mail...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération du médecin...");
@@ -104,7 +104,7 @@ export async function createMedecin(newMedecin: MedecinRegister): Promise<Medeci
         },
         body: JSON.stringify(newMedecin)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Problème survenue lors de l'enregistrement du médecin...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la création du médecin...")
@@ -121,7 +121,7 @@ export async function updateMedecin(email: string, updatedMedecin: UpdateMedecin
         },
         body: JSON.stringify(updatedMedecin)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Problème survenue lors de la mise a jour du médecin...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la mise à jour du médecin...")
@@ -137,7 +137,7 @@ export async function desactivateMedecin(email: string): Promise<any> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la désactivation du compte médecin...")
@@ -153,7 +153,7 @@ export async function deleteMedecin(email: string): Promise<any> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun médecin trouvé...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la suppression du compte médecin...")

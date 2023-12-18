@@ -7,7 +7,7 @@ export async function getAllUsers(): Promise<User[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun Utilisateur trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des utilisateurs...")
@@ -23,7 +23,7 @@ export async function getAllUsersInactif(): Promise<User[]> {
             'Content-Type': 'application/json'
         }
     });
-    if(response.status == 404) {
+    if(response.status === 404) {
         throw new Error("Aucun Utilisateur trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des uilisateurs...")
@@ -39,7 +39,7 @@ export async function getAllUsersActif(): Promise<User[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé...")
     }else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des utilisateurs...")
@@ -55,7 +55,7 @@ export async function getUserById(user_id: number): Promise<User> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération de l'utilisateur...")
@@ -71,7 +71,7 @@ export async function getUserByEmail(email: string): Promise<User> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé...");
     }else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération de l'utilisateur...")
@@ -122,7 +122,7 @@ export async function updateUser(email: string, userUpdate: UserRegister): Promi
         },
         body: JSON.stringify(userUpdate)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé...");
     }else if(!response.ok) {
         throw new Error("Une erreur est survenue lors de la mise à jour de l'utilisateur...")
@@ -138,7 +138,7 @@ export async function desactivateUser(email: string): Promise<any> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la désactivation de l'utilisateur...")
@@ -154,7 +154,7 @@ export async function deleteUser(email: string): Promise<any> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la suppression de l'utilisateur...")
@@ -171,7 +171,7 @@ export async function loginUser(loginUser: LoginUser): Promise<any> {
         },
         body: JSON.stringify(loginUser)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur trouvé, email ou mot de passe invalide...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la connexion utilisateur...")
@@ -187,7 +187,7 @@ export async function logoutUser(token: string): Promise<any> {
             'token': token
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun utilisateur connecté trouvé avec ce token...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la déconnexion de l'utilisateur...");

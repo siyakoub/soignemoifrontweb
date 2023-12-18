@@ -33,6 +33,7 @@ import ListSejour from "./dashboard/listesejour";
 import ListPrescription from "./dashboard/listPrescription";
 import AvisList from "./dashboard/listAvis";
 import HomeDraw from "./dashboard/homeDraw";
+import MedecinPlanning from "./dashboard/MedecinPlanning";
 
 function Copyright(props: any) {
     return (
@@ -241,7 +242,7 @@ export default function MedecinDashboard() {
                             <ListItemIcon>
                                 <DateRangeIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Planning" />
+                            <ListItemText primary="Mon Planning" />
                         </ListItemButton>
                         <ListItemButton onClick={() => handleMenuItemClick('ListPrescription')}>
                             <ListItemIcon>
@@ -265,8 +266,8 @@ export default function MedecinDashboard() {
                 </Drawer>
                 {selectedComponent === 'AvisList' && <AvisList medecinId={String(medecin_id)} />}
                 {selectedComponent === 'ListPrescription' && <ListPrescription  medecinId={String(medecin_id)}/>}
-                {selectedComponent === 'ListSejour' && <ListSejour  medecinId={String(medecin_id)}/>}
-                {selectedComponent === 'WeeklySchedule' && <WeeklySchedule/>}
+                {selectedComponent === 'ListSejour' && <ListSejour medecinId={String(medecin_id)}/>}
+                {selectedComponent === 'WeeklySchedule' && <MedecinPlanning medecinId={Number(medecin_id)}/>}
                 {selectedComponent === 'Home' && <HomeDraw/>}
                 {selectedComponent === 'myProfile' && <MedecinProfile/>}
             </Box>

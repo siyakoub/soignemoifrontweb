@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {styled} from "@mui/system";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {Medecin, getAllMedecinActif} from "../../../service_api/medecin_service";
-import {getAllSejourByUser} from "../../../service_api/sejour_service";
 
 const ListMedecins: React.FC<{user_id : string | null}> = ({user_id}) => {
 
@@ -34,23 +32,25 @@ const ListMedecins: React.FC<{user_id : string | null}> = ({user_id}) => {
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center",
                 alignItems: "center", width: "90%" }}>
                 {medecins.map((medecins) => (
-                    <MedecinCard key={medecins.medecin_id}>
-                        <Typography variant="h6" component="div">
-                            Nom : {medecins.name}
-                        </Typography>
-                        <Typography variant="h6" component="div">
-                            Prénom : {medecins.firstName}
-                        </Typography>
-                        <Typography variant="h6" component="div">
-                            Matricule : {medecins.matricule}
-                        </Typography>
-                        <Typography variant="h6" component="div">
-                            Limite Client : {medecins.limitCustomer}
-                        </Typography>
-                        <Typography variant="h6" component="div">
-                            Spécialité : {medecins.speciality}
-                        </Typography>
-                    </MedecinCard>
+                    <>
+                        <MedecinCard key={medecins.medecin_id}>
+                            <Typography variant="h6" component="div">
+                                Nom : {medecins.name}
+                            </Typography>
+                            <Typography variant="h6" component="div">
+                                Prénom : {medecins.firstName}
+                            </Typography>
+                            <Typography variant="h6" component="div">
+                                Matricule : {medecins.matricule}
+                            </Typography>
+                            <Typography variant="h6" component="div">
+                                Limite Client : {medecins.limitCustomer}
+                            </Typography>
+                            <Typography variant="h6" component="div">
+                                Spécialité : {medecins.speciality}
+                            </Typography>
+                        </MedecinCard>
+                    </>
                 ))}
             </div>
         </div>

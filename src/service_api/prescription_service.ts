@@ -7,7 +7,7 @@ export async function getAllPrescription(): Promise<Prescription[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucune prescription trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des prescriptions...")
@@ -23,7 +23,7 @@ export async function getPrescriptionById(prescription_id: number) : Promise<Pre
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucune prescription trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération de la prescription");
@@ -39,7 +39,7 @@ export async function getAllPrescriptionByUser(user_id: number): Promise<Prescri
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucune prescription trouvé...");
     }else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des prescription...")
@@ -55,7 +55,7 @@ export async function getAllPrescriptionByMedecin(medecin_id: number) : Promise<
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucune prescription trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des prescriptions...")
@@ -89,7 +89,7 @@ export async function updatePrescription(prescription_id: number, updatePrescrip
         },
         body: JSON.stringify(updatePrescription)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucune prescription trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la mise à jour de la prescription...")
@@ -105,7 +105,7 @@ export async function deletePrescription(prescription_id: number) : Promise<any>
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucune prescription trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la suppression de la prescription...")

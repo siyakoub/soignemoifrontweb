@@ -138,7 +138,7 @@ const ListPrescription: React.FC<{ medecinId: string }> = ({ medecinId }) => {
                         />
                     ))}
                 </SpeedDial>
-                <Dialog open={openAddPrescription} onClose={handleCloseAddPrescription}>
+                <Dialog open={openAddPrescription} onClose={handleCloseNewPrescription}>
                     <form onSubmit={handleCloseAddPrescription}>
                         <DialogTitle>Créer une nouvelle prescription</DialogTitle>
                         <DialogContent>

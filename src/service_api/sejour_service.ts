@@ -7,7 +7,7 @@ export async function getAllSejour(): Promise<Sejour[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun séjour trouvé...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des séjours...")
@@ -23,7 +23,7 @@ export async function getSejourById(sejour_id: number) : Promise<Sejour> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun séjour trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération du séjour...")
@@ -55,7 +55,7 @@ export async function getAllSejourByMedecin(medecin_id: number): Promise<Sejour[
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun séjour trouvé pour ce médecin...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des sejours...")
@@ -72,10 +72,11 @@ export async function createSejour(newSejour: SejourRegister): Promise<any> {
         },
         body: JSON.stringify(newSejour)
     });
-    if (response.status == 404) {
-        throw new Error("un Problème est survenue lors de la création du séjour...")
+    if (response.status === 404) {
+        throw new Error("un Problème est survenue lors de la création du séjour...");
     } else if (!response.ok) {
-        throw new Error("Une erreur est survenue lors de la création du séjour...")
+        console.log(response.body);
+        throw new Error("Une erreur est survenue lors de la création du séjour...");
     }
     const data = await response.json();
     return data;
@@ -89,7 +90,7 @@ export async function updateSejour(sejour_id: number, updateSejour: UpdateSejour
         },
         body: JSON.stringify(updateSejour)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun séjour trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la mise à jour du séjour...");
@@ -105,7 +106,7 @@ export async function deleteSejour(sejour_id: number): Promise<any> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun séjour trouvé...");
     } else if (response.ok) {
         throw new Error("Une erreur est survenue lors de la suppression du séjour...")

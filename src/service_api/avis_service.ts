@@ -7,7 +7,7 @@ export async function getAllAvis(): Promise<Avis[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun avis trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des avis...")
@@ -23,7 +23,7 @@ export async function getAvisById(avis_id: number) : Promise<Avis> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun avis trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération de l'avis...")
@@ -39,7 +39,7 @@ export async function getAllAvisByUser(user_id: number) : Promise<Avis[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun avis trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la recupération des avis...")
@@ -55,7 +55,7 @@ export async function getAllAvisbyMedecin(medecin_id: number): Promise<Avis[]> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun avis trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la récupération des avis...");
@@ -72,7 +72,7 @@ export async function createAvis(newAvis: AvisRegister) : Promise<any> {
         },
         body: JSON.stringify(newAvis)
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Un Problème est survenue lors de la création de l'avis...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la création de l'avis...")
@@ -88,7 +88,7 @@ export async function updateAvis(avis_id: number, updateAvis: AvisUpdate): Promi
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun avis trouvé...");
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la mise à jour de l'avis...")
@@ -104,7 +104,7 @@ export async function deleteAvis(avis_id: number): Promise<any> {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status == 404) {
+    if (response.status === 404) {
         throw new Error("Aucun avis trouvé...")
     } else if (!response.ok) {
         throw new Error("Une erreur est survenue lors de la suppresion de l'avis...")
