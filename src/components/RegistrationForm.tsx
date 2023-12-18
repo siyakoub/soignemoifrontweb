@@ -247,6 +247,7 @@ export default function SignUp() {
                                             label="Matricule"
                                             type="tel"
                                             id="matricule"
+                                            value={matricule}
                                             onChange={handleMatriculeChange}
                                             inputProps={{ maxLength: 7 }}
                                         />
