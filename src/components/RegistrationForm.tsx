@@ -48,6 +48,7 @@ export default function SignUp() {
     const [medecinFields, setMedecinFields] = useState(false);
     const [userFlieds, setUserField] = useState(false);
     const [matricule, setMatricule] = useState('');
+    const [limit, setLimit] = useState('');
 
 
     const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -64,6 +65,13 @@ export default function SignUp() {
         }
     };
     const handleMatriculeChange = (event: { target: { value: any; }; }) => {
+        const value = event.target.value;
+        // Autoriser uniquement les chiffres et limiter à 7 chiffres
+        if (value === '' || (value.match(/^\d+$/) && value.length <= 7)) {
+            setMatricule(value);
+        }
+    };
+    const handleLimitChange = (event: { target: { value: any; }; }) => {
         const value = event.target.value;
         // Autoriser uniquement les chiffres et limiter à 7 chiffres
         if (value === '' || (value.match(/^\d+$/) && value.length <= 7)) {
@@ -274,6 +282,9 @@ export default function SignUp() {
                                             label="Limite prise en charge"
                                             type="text"
                                             id="limitCustomer"
+                                            value={limit}
+                                            onChange={handleLimitChange}
+                                            inputProps={{ maxLength: 7 }}
                                         />
                                         {/* ... other fields for Médecin */}
                                     </Grid>
