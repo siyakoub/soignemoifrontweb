@@ -236,8 +236,9 @@ export default function SignUp() {
                                             fullWidth
                                             name="matricule"
                                             label="Matricule"
-                                            type="text"
+                                            type="tel"
                                             id="matricule"
+                                            inputProps={{ maxLength: 7 }}
                                         />
                                         {/* ... other fields for Médecin */}
                                     </Grid>
