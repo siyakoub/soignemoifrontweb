@@ -47,6 +47,8 @@ export default function SignUp() {
     const [userType, setUserType] = useState('');
     const [medecinFields, setMedecinFields] = useState(false);
     const [userFlieds, setUserField] = useState(false);
+    const [matricule, setMatricule] = useState('');
+
 
     const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setUserType(event.target.value);
@@ -59,6 +61,13 @@ export default function SignUp() {
             setUserField(true);
         } else {
             setUserField(false);
+        }
+    };
+    const handleMatriculeChange = (event: { target: { value: any; }; }) => {
+        const value = event.target.value;
+        // Autoriser uniquement les chiffres et limiter à 7 chiffres
+        if (value === '' || (value.match(/^\d+$/) && value.length <= 7)) {
+            setMatricule(value);
         }
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -238,6 +247,7 @@ export default function SignUp() {
                                             label="Matricule"
                                             type="tel"
                                             id="matricule"
+                                            onChange={handleMatriculeChange}
                                             inputProps={{ maxLength: 7 }}
                                         />
                                         {/* ... other fields for Médecin */}
